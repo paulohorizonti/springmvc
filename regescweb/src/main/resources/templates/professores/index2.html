@@ -1,0 +1,182 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+ 
+  <!-- usando o framento: primeiro argumento=nome doa rquivo, segundo argumento = nome do fragmento -->
+  <head th:replace="~{fragmentos :: head('Lista de Professores')}">
+  </head>
+  <body>
+ <!-- PArte de navegacao que tb sera um fragmento -->
+<nav th:replace="~{fragmentos :: nav}"></nav>
+
+
+
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-2">
+		<!-- aqui vai o fragmento do menu laterial -->
+		<div th:replace="~{fragmentos :: sideMenu}"></div>
+		
+		</div>
+		<div class="col-10">
+		<!-- Aqui vai a página -->
+		<header th:replace="~{fragmentos :: header('Lista de Professores paginada')}"></header>
+		
+		<div class="container-fluid">
+		<div class="col-8">
+		
+		<div  th:styleappend="${(param.erro == null || param.mensagem == null) ? 'display:none;' : ''}"
+			th:classappend="${(param.erro != null && param.erro) ? 'alert-danger' : 'alert-primary'}"
+			th:text="${param.mensagem != null ? param.mensagem : ''}"    class="alert" role="alert">
+			
+  					<!-- A simple danger alert—check it out! -->
+		</div>
+		
+		<!-- 
+		
+			<span th:styleappend="${(param.erro == null || param.mensagem == null) ? 'display:none;' : ''}"
+			th:classappend="${(param.erro != null && param.erro) ? 'error-message' : 'sucess-message'}"
+			th:text="${param.mensagem != null ? param.mensagem : ''}"></span> -->
+		</div>
+		
+		</div>
+  
+  <div class="container-fluid">
+  
+    <div class="card mt-3">
+  
+ 
+  <div class="card-body">
+  <!-- Form -->
+
+
+  
+  
+  
+  <div class="row">
+  	<div class="col-6">
+  	<form th:action="@{/professores}" method="get" class="card-body">
+  	
+  	  <div class="input-group mb-3">
+  <input type="text" class="form-control"  name="nome" placeholder="Pesquisa por nome" aria-label="Pesquisa por nome" aria-describedby="button-addon2">
+  <button class="btn btn-outline-primary" type="submit" id="button-addon2">Buscar</button>
+</div>
+  	
+  	<!-- 
+		<input class="form-control" type="text" name="nome" >
+		<button class="btn btn-primary" type="submit">ENVIAR</button> -->
+	</form>
+  	
+  	</div>
+  
+  </div>
+  
+  
+  
+  
+  
+    <div class="row">
+   		<div class="row">
+   			<div class="col-12">
+   		<table class="table table-striped table-hover">
+  			<thead>
+  				<tr>
+  					<th scope="col">ID</th>
+  					<th scope="col">Nome</th>
+  					<th scope="col">Salário</th>
+  					<th scope="col">Status</th>
+  					<th scope="col" colspan="3" style="text-align:center;">Ações</th>
+  					
+  				
+  				</tr>
+  			
+  			</thead>
+  			<tbody class="table-group-divider">
+  				<tr th:each="professor : ${page.content}">
+  				
+  					<th class="col-1" scope="row" th:text="${professor.getId()}">1</th>
+  					<td class="col-4" th:text="${professor.nome}">Nome</td>
+  					<td class="col-2" th:text="${professor.salario}">Salario</td>
+  					<td class="col-2" th:text="${professor.statusProfessor.toString()}">Status</td>
+  					<td class="col-1"><a th:href="@{/professores/{professorId}(professorId = ${professor.id})}">Detalhes</a> </td>
+  					<td  class="col-1"><a th:href="@{/professores/{professorId}/edit(professorId = ${professor.id})}"> Editar</a>     </td>
+  					<td  class="col-1"><a th:href="@{/professores/{professorId}/delete(professorId = ${professor.id})}">   Deletar</a></td>
+  					
+  				</tr>
+  			</tbody>
+         </table>
+         
+         <!-- paginação -->
+         <nav class="pagination-div">
+         <ul class="pagination justify-content-end">
+		    <li th:if="${page.hasPrevious()}" class="page-item">
+		    	<a class="page-link" th:href="@{/professores(page=${page.number-1},size=${page.size})}">Anterior</a>
+		    </li>
+		    
+		    <th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
+		     <li th:if="${page.number == i}"  class="page-item active">
+		           <a class="page-link" th:href="@{/professores(page=${i},size=${page.size})}">[[${i}+1]]</a>
+		     		
+		     </li>
+		     
+		     <li th:unless="${page.number == i}">
+		     
+		     	<a class="page-link" th:href="@{/professores(page=${i},size=${page.size})}">[[${i}+1]]</a>
+		     	
+		     	</li>    
+		      
+   			 </th:block>
+		    
+		    <li th:if="${page.hasNext()}">
+       			 <a class="page-link" th:href="@{/professores(page=${page.number+1},size=${page.size})}">Próximo</a>
+   			</li>
+		    
+		   
+		    
+		  </ul>
+         
+         
+         </nav>
+        
+         
+         
+   		</div>
+	    
+   </div>
+   		
+   		
+   </div>
+  </div>
+  <div class="card-footer text-muted">
+  <div class="row">
+     <div class="col-1">
+     	<a class="btn btn-primary" href="/professores/new">NOVO</a>
+     </div>
+     
+     </div>
+   
+   
+  </div>
+</div>
+  
+  
+  
+    
+     
+   
+   
+  </div>
+		
+		
+		</div>
+	
+	</div>
+
+</div>
+
+
+
+  <script th:replace="~{fragmentos :: script}"></script>
+
+  </body>
+</html>

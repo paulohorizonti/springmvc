@@ -1,0 +1,86 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+ 
+  <!-- usando o framento: primeiro argumento=nome doa rquivo, segundo argumento = nome do fragmento -->
+  <head th:replace="~{fragmentos :: head('Lista de Professores')}">
+  </head>
+  <body>
+
+  <nav th:replace="~{fragmentos :: nav}"></nav>
+  
+<header th:replace="~{fragmentos :: header('Lista de Professores')}"></header>
+  
+  <div class="container">
+  
+    <div class="card mt-3">
+  
+
+  <div class="card-body">
+    <div class="row">
+   		<div class="row">
+   			<div class="col-12">
+   		<table class="table table-striped table-hover">
+  			<thead>
+  				<tr>
+  					<th scope="col">ID</th>
+  					<th scope="col">Nome</th>
+  					<th scope="col">Salário</th>
+  					<th scope="col">Status</th>
+  					<th scope="col" colspan="3" style="text-align:center;">Ações</th>
+  					
+  				
+  				</tr>
+  			
+  			</thead>
+  			<tbody class="table-group-divider">
+  				<tr th:each="professor : ${professores}">
+  				
+  					<th class="col-1" scope="row" th:text="${professor.getId()}">1</th>
+  					<td class="col-4" th:text="${professor.nome}">Nome</td>
+  					<td class="col-2" th:text="${professor.salario}">Salario</td>
+  					<td class="col-2" th:text="${professor.statusProfessor.toString()}">Status</td>
+  					<td class="col-1"><a th:href="@{/professores/{professorId}(professorId = ${professor.id})}">Detalhes</a> </td>
+  					<td class="col-1">Editar</td>
+  					<td class="col-1">Deletar</td>
+  					
+  				</tr>
+  			</tbody>
+         </table>
+   		</div>
+	    
+   </div>
+   		
+   		
+   </div>
+  </div>
+  <div class="card-footer text-muted">
+  <div class="row">
+     <div class="col-1">
+     	<a class="btn btn-primary" href="/professores/new">NOVO</a>
+     </div>
+     
+     </div>
+   
+   
+  </div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+     
+   
+   
+  </div>
+  
+  <script th:replace="~{fragmentos :: script}"></script>
+
+  </body>
+</html>

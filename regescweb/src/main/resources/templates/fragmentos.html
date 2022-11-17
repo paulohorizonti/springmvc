@@ -1,0 +1,169 @@
+ <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+ <head th:fragment="head(titulo)">
+    <meta http-equiv=”Content-Type” content=”text/html; charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+       
+    <title th:text="${titulo}">Nossa Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+     <link rel="stylesheet" href="/css/style.css" />
+     <style>
+   
+   .table{
+         --bs-table-striped-bg: rgb(45 80 181 / 8%) !important;
+
+   }
+   
+   
+ 
+   </style>
+   <style>
+   .pagination-div{
+   
+   display: inline;
+ width: 100;
+ float: right;
+   }
+   </style>
+ </head>
+ 
+ <!-- header -->
+ 	<header th:fragment="header(titulo)">
+		<div class="container-fluid mt-3">
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a aria-current="page" href="/" class="nav-link" th:classappend="${#httpServletRequest.getRequestURI().equals('/') ? 'active':''}">Home</a>
+				
+				</li>
+				<li class="nav-item">
+					<a href="/professores" class="nav-link" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/professores') ? 'active':''}">Professores</a>
+				</li>
+				
+				<li class="nav-item">
+					<a href="#" class="nav-link">Alunos</a>
+				</li>
+			
+			
+			</ul>
+		
+		</div>
+		<div class="container-fluid mt-3">
+			<div class="row"></div>
+			<div class="row">
+				<div class="col-12">
+				
+					<h1 th:text="${titulo}">Sistema de Registros Escolares</h1>
+				</div>
+			
+			</div>
+				
+		</div>
+
+	</header>
+	
+	
+	
+	
+	<!-- navegacao -->
+	  <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+         
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Menu lateral -->
+<div th:fragment="sideMenu" class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        Dashboard
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      <ul>
+      		<li>Cadastros</li>
+      		<li>Estatísticas</li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button" 
+        th:classappend="${#httpServletRequest.getRequestURI().startsWith('/professores') ? 'collapsed':''}" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+       Cadastros
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      
+ 		
+      <ul class="nav flex-column">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Alunos</a>
+  </li>
+  <li class="nav-item">
+  <a href="/professores" class="nav-link" th:classappend="${#httpServletRequest.getRequestURI().startsWith('/professores') ? 'active':''}">Professores</a>
+   
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">Sala de Aula</a>
+  </li>
+
+</ul>
+      
+      
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        Sair
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        Sair
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+	<!-- Scipt -->
+	    <script th:fragment="scipt" src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+	

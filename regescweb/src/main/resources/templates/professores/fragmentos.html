@@ -1,0 +1,54 @@
+ <div class="container" th:fragment="form(requisicaoFormProfessor,action)">
+  <form th:object="${requisicaoFormProfessor}" th:action="${action}" method="POST">
+  
+  
+  <div class="card mt-3">
+  
+
+  <div class="card-body">
+    <div class="row">
+   		
+	   		<div class="mb-3 mt-3">
+	   			<label class="form-label">Nome</label>
+	   			<input type="text" class="form-control" th:errorclass="is-invalid"  th:field="*{nome}"/> <!-- mESMO NOME DO ATRIBUTO DA CLASSE ENTITY -->
+	   			<div class="invalid-feedback" th:errors="*{nome}">  </div>
+					   		
+	   		</div>
+	   		<div class="mb-3">
+	   			<label  class="form-label">Salário</label>
+	   			<input type="text" class="form-control"  th:errorclass="is-invalid" th:field="*{salario}"/>
+	   			<div class="invalid-feedback" th:errors="*{salario}">  </div>
+	   		
+	   		</div>
+	   		<div class="mb-3">
+	   			<label  class="form-label">Status</label>
+	   			<select th:field="*{statusProfessor}"  class="form-select">
+	   		
+	   				<option th:each="status:${listaStatusProfessor}" th:value="${status}" th:text="${status}"></option>
+	   				
+	   			</select>
+	   		
+	   		</div>
+	   		
+   		
+   		
+   </div>
+  </div>
+  <div class="card-footer text-muted">
+  
+   <div class="row">
+   
+	     <div class="col-1">
+	     	   <a class="btn btn-primary" href="/professores/">VOLTAR</a>
+	     </div>
+	     <div class="col-1">
+	     <button class="btn btn-success" type="submit">ENVIAR</button>
+	     </div>
+   </div>
+   
+  </div>
+</div>
+  
+  </form>
+ 
+  </div><!-- Fim do container -->

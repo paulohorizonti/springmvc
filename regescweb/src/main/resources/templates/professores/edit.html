@@ -1,0 +1,22 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org" lang="pt-br">
+  
+  <!-- usando o framento: primeiro argumento=nome doa rquivo, segundo argumento = nome do fragmento -->
+  <head th:replace="~{fragmentos :: head('Editar Professor')}">
+  </head>
+  <body>
+<nav th:replace="~{fragmentos :: nav}"></nav>
+  
+<header th:replace="~{fragmentos :: header('Editar Professor:#'+${professorId})}"></header>
+ 
+ <!-- Contanier do form -->
+ <div class="container"  th:replace="~{professores/fragmentos :: form(requisicaoFormProfessor, '/professores/'+${professorId})}"> </div>
+ 
+ 
+			<script th:replace="~{fragmentos :: script}">
+			
+			</script>
+			
+			
+  </body>
+</html>
